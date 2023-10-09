@@ -49,6 +49,40 @@ export default {
     };
   },
   methods: {
+    getDefaultTime(): Date[] {
+      return [new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 2, 1, 23, 59, 59)];
+    },
+    getShortcuts(): any {
+      return [
+        {
+          text: "Last week",
+          value: () => {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            return [start, end];
+          },
+        },
+        {
+          text: "Last month",
+          value: () => {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            return [start, end];
+          },
+        },
+        {
+          text: "Last 3 months",
+          value: () => {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            return [start, end];
+          },
+        },
+      ];
+    },
     setloc(routeloc: string) {
       let loc: string = routeloc;
       if (loc == "zh" || loc == "zhHans" || loc == "zh_cn" || loc == "zh_CN") {
@@ -58,7 +92,7 @@ export default {
         loc = "zhHans";
       }
       sessionStorage.setItem("lang", loc);
-      i18n.global.locale = loc;
+      i18n.global.locale.value = loc as "zhHans" | "en";
     },
 
     setDark(isdark = false) {

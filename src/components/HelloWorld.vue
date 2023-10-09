@@ -22,10 +22,19 @@
       <el-date-picker
         v-model="picker"
         type="datetimerange"
+        :shortcuts="utils.methods.getShortcuts()"
         range-separator="To"
         start-placeholder="Start date"
         end-placeholder="End date"
+        format="YYYY-MM-DD HH:mm"
+        value-format="YYYY-MM-DD HH:mm"
+        :default-time="utils.methods.getDefaultTime()"
       />
+      <p>
+        <v-btn variant="outlined" @click="console.log(picker)">
+          Date Picker
+        </v-btn>
+      </p>
       <Editor v-model="editorData" />
       <div class="sizedbox"></div>
       <v-btn variant="outlined" @click="showEditorData()"> Editor </v-btn>
@@ -36,6 +45,7 @@
 <script setup lang="ts">
 import { ref, reactive, nextTick, computed } from "vue";
 import Editor from "@/components/editor.vue";
+import utils from "@/services/utils";
 
 let fileMap: any = {};
 
