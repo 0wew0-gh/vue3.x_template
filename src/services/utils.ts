@@ -1,4 +1,4 @@
-import i18n from "../assets/i18n";
+import { $t, setLocale } from "@/locales";
 
 export default {
   data() {
@@ -10,26 +10,26 @@ export default {
         name: [
           {
             required: true,
-            message: i18n.global.t("form.rules.name"),
+            message: $t("form.rules.name"),
             trigger: "blur",
           },
           {
             min: 3,
             max: 20,
-            message: i18n.global.t("form.rules.len"),
+            message: $t("form.rules.len"),
             trigger: "blur",
           },
         ],
         pw: [
           {
             required: true,
-            message: i18n.global.t("form.rules.pw"),
+            message: $t("form.rules.pw"),
             trigger: "blur",
           },
           {
             min: 3,
             max: 20,
-            message: i18n.global.t("form.rules.len"),
+            message: $t("form.rules.len"),
             trigger: "blur",
           },
         ],
@@ -91,8 +91,8 @@ export default {
       if (loc != "en" && loc != "zhHans") {
         loc = "zhHans";
       }
-      sessionStorage.setItem("lang", loc);
-      i18n.global.locale.value = loc as "zhHans" | "en";
+      localStorage.setItem("lang", loc);
+      setLocale(loc as "zhHans" | "en");
     },
 
     setDark(isdark = false) {

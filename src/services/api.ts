@@ -1,10 +1,10 @@
 import axios from "axios";
-import i18n from "../assets/i18n";
+import { $t } from "@/locales";
 import qs from "qs";
 
 import { ElMessage } from "element-plus";
 // import { el } from "element-plus/es/locale";
-// import router from "../router";
+// import router from "@/router";
 
 const api = "//127.0.0.1:20520";
 
@@ -22,11 +22,11 @@ export default {
         .then((res: any) => {
           if (res.status == 200) {
             ElMessage({
-              message: i18n.global.t("state.success"),
+              message: $t("state.success"),
               type: "success",
             });
           } else {
-            ElMessage.error(i18n.global.t("state.error") + res.data.msg);
+            ElMessage.error($t("state.error") + res.data.msg);
           }
           console.log(res);
           return res;
@@ -63,7 +63,7 @@ export default {
     _backlogin(notifMsg = "") {
       if (notifMsg != "") {
         // ElNotification({
-        //   title: i18n.global.t("state.error"),
+        //   title: $t("state.error"),
         //   message: notifMsg,
         //   type: "error",
         // });
