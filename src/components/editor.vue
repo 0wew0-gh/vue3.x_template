@@ -557,13 +557,13 @@ const CustomTableCell = TableCell.extend({
   addAttributes() {
     return {
       // extend the existing attributes …
-      ...this.parent?.(),
+      ...((this as any).parent?.() || {}),
 
       // and add a new one …
       backgroundColor: {
         default: null,
-        parseHTML: (element) => element.getAttribute("data-background-color"),
-        renderHTML: (attributes) => {
+        parseHTML: (element: any) => element.getAttribute("data-background-color"),
+        renderHTML: (attributes: any) => {
           return {
             "data-background-color": attributes.backgroundColor,
             style: `background-color: ${attributes.backgroundColor}`,
