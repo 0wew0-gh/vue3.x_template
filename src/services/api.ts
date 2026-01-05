@@ -1,5 +1,5 @@
 import axios from "axios";
-import { $t } from "@/locales";
+import { $t, getLocale } from "@/locales";
 import qs from "qs";
 
 import { ElMessage } from "element-plus";
@@ -11,14 +11,13 @@ const api = "//127.0.0.1:20520";
 export default {
   methods: {
     login(username: string, password: string) {
+      const formData = {
+        usr: username,
+        pwd: password,
+        l: this._getlanguage(),
+      };
       return axios
-        .post(
-          api + "/login/",
-          qs.stringify({
-            usr: username,
-            pwd: password,
-          })
-        )
+        .post(api + "/login/", qs.stringify(formData))
         .then((res: any) => {
           if (res.status == 200) {
             ElMessage({
@@ -34,6 +33,18 @@ export default {
         .catch((error: any) => {
           this._errorhandling(error);
         });
+    },
+
+    _getlanguage(): number {
+      switch (getLocale()) {
+        case "en":
+          return 1;
+        case "zhHans":
+          return 2;
+        default:
+          break;
+      }
+      return 1;
     },
 
     _errorhandling(error: any, isbacklogin = true) {
