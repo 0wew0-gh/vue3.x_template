@@ -19,16 +19,26 @@
   </v-container>
 </template>
 
-<script setup lang="ts">
-import { reactive } from "vue";
+<script lang="ts">
+import { defineComponent, reactive } from "vue";
 import api from "@/services/api";
-const fromLogin = reactive({
-  username: "",
-  password: "",
-});
 
-function login() {
-  console.log(fromLogin);
-  api.methods.login(fromLogin.username, fromLogin.password);
-}
+export default defineComponent({
+  name: "App",
+  components: {},
+  setup() {
+    const fromLogin = reactive({
+      username: "",
+      password: "",
+    });
+
+    return { fromLogin };
+  },
+  methods: {
+    login() {
+      console.log(this.fromLogin);
+      api.methods.login(this.fromLogin.username, this.fromLogin.password);
+    },
+  },
+});
 </script>
